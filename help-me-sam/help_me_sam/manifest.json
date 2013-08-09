@@ -1,0 +1,16 @@
+{
+  "name" : "Help me with SAM",
+  "version" : "0.1",
+  "description" : "show me what I need to know to register at SAM",
+  "background" : { "scripts": ["background.js"] },
+  "permissions" : [ "tabs", "https://dl.dropboxusercontent.com/*", "http://www.gsa.gov/*", "http://business.usa.gov/" ],
+  "content_scripts": [
+	   {
+	   "matches": ["https://www.sam.gov/*"],
+	   "css": ["mybusa.css"],
+	   "js": ["mybusa.js"]
+	   }
+  ],
+  "minimum_chrome_version" : "6.0.0.0",
+  "manifest_version": 2
+}
