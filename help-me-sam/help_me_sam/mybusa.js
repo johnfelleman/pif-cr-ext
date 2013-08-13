@@ -1,18 +1,24 @@
 $(document).ready(function() {
     // define the main DIVs
     var sam_div = $('#UIPortalApplication');
-    var busa_main_div = $('<div class="busa" id="busa-main"><h1 id="dont-panic">DON\'T PANIC</h1><div id="busa-content"></div></div>');
+    var busa_main_div = $('<div class="busa" id="busa-main"><div id="busa-content"></div></div>');
     var busa_toggle_div = $('<div class="busa"><p><a href="#" id="busa-toggle">Close</a></p></div>');
 
     // insert the DIVs into the DOM
-    //var xhr = new XMLHttpRequest();
-    ////xhr.onreadystatechange = handleStateChange; // Implemented elsewhere.
-    //xhr.open("GET", chrome.extension.getURL("./busa-main.html"), true);
-    //xhr.send();
-    //console.log(xhr);
+    var req = $.ajax({
+        type: "GET",
+        url: chrome.extension.getURL("busa-main.html"),
+        dataType: "html"
+    });
+    req.done(function(msg) {
+        $('div#busa-content').html(msg);
+    });
+    req.fail(function(jqXHR, textStatus) {
+        console.log("Request failed: " + textStatus);
+    });
 
-//$('#busa-content').load(chrome.extension.getURL("./busa-main.html"));
-    console.log(chrome.extension.getURL("./busa-main.html"));
+    //console.log(chrome.extension.getURL("busa-main.html"));
+    //$('div#busa-content').load($.open(chrome.extension.getURL("busa-main.html")));
     busa_main_div.hide();
     busa_main_div.insertBefore(sam_div);
     busa_toggle_div.insertAfter(busa_main_div);
