@@ -14,21 +14,24 @@ $(document).ready(function() {
     var page_name = $("div.page_heading").text();
     if (!page_name) {
         page_name = 'SAM.gov';
+    } else {
+        busa_main_div.show();
     }
+
     console.log("Page Name: " + page_name);
     var div_id = page_name.replace(/ /g, '-');
     div_id = div_id.replace(/\./g, '-');
     console.log("DIV ID: " + div_id);
 
     // pull API data from modus-operandi
-    $.getJSON('http://mo.tynsax.com/api/registrations/1/full_map')
-        .done(function(json) {
-            //page_name = json['name'].toString();
-            //$('div#busa-content').append(page_name);
-        })
-        .fail(function(jqxhr, textStatus, error) {
-            alert("Oh noes!! The call to modus-operandi failed!");
-        });
+    // $.getJSON('http://mo.tynsax.com/api/registrations/1/full_map')
+    //     .done(function(json) {
+    //         //page_name = json['name'].toString();
+    //         //$('div#busa-content').append(page_name);
+    //     })
+    //     .fail(function(jqxhr, textStatus, error) {
+    //         alert("Oh noes!! The call to modus-operandi failed!");
+    //     });
 
 
     // insert the DIVs into the DOM
@@ -39,6 +42,7 @@ $(document).ready(function() {
     });
     req.done(function(msg) {
         $('div#busa-content').html($(msg).filter("#" + div_id));
+        $(msg).filter('#busa-customer-svc').insertAfter($('div#busa-content'));
     });
     req.fail(function(jqXHR, textStatus) {
         console.log("Request failed: " + textStatus);
