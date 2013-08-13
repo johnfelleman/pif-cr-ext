@@ -4,9 +4,6 @@ $(document).ready(function() {
     var busa_main_div = $('<div class="busa" id="busa-main"><div id="busa-content"></div></div>');
     var busa_toggle_div = $('<div class="busa"><p><a href="#" id="busa-toggle">Close</a></p></div>');
 
-    //console.log(chrome.extension.getURL("busa-main.html"));
-    //$('div#busa-content').load($.open(chrome.extension.getURL("busa-main.html")));
-    busa_main_div.hide();
     busa_main_div.insertBefore(sam_div);
     busa_toggle_div.insertAfter(busa_main_div);
 
@@ -14,8 +11,7 @@ $(document).ready(function() {
     var page_name = $("div.page_heading").text();
     if (!page_name) {
         page_name = 'SAM.gov';
-    } else {
-        busa_main_div.show();
+        $('div#busa-main').hide();
     }
 
     console.log("Page Name: " + page_name);
@@ -50,16 +46,16 @@ $(document).ready(function() {
 
     // define toggle/click/slide behavior
     $('#busa-toggle').click(function() {
-        if ( busa_main_div.is(":visible") ) {
-            busa_main_div.slideUp();
+        if ( $('div#busa-main').is(":visible") ) {
+            $('div#busa-main').slideUp();
             
             $(this).text("Get Help for " + page_name);
         } else {
-            busa_main_div.slideDown();
+            $('div#busa-main').slideDown();
             $(this).text("Close");
         }
     });
 
     // trigger opening animation
-    busa_main_div.slideDown();
+    $('div#busa-main').slideDown();
 });
