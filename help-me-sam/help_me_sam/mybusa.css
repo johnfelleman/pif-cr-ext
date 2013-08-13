@@ -44,13 +44,11 @@
 }
 
 #busa-toggle div {
-    padding: 1em;
+  padding: 1em;
 }
 
-#dont-panic {
-  font-size: 500%;
-  line-height: 150%;
-  top: 0px;
-  left: 10px;
-  background-color: 0xcccccc;
+.busa-guide-text {
+  float: left;
+  font-size: 90%;
+  line-height: 90%;
 }
