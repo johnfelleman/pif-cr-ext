@@ -1,6 +1,5 @@
 .busa {
   position:fixed;
-  z-index:100000;
   width: 100%;
   background-color: rgba(0,0,0,0.8);
   max-height: 10em;
@@ -10,12 +9,30 @@
   font-size: 125%;
 }
 
+#popup-help {
+    position: fixed:
+    left: 400px;
+    top: 800px;
+    background-color: red;
+    color: white;
+    z-index: 20000;
+    visibility: visible;
+}
+
+.floating-help-not {
+    background-color: red;
+    color: white;
+    visibility: visible;
+}
+
 .busa a:link {
   color: lightblue;
 }
+
 .busa a:visited {
   color: lightpink;
 }
+
 .busa a:active {
   color: red;
 }
@@ -24,6 +41,7 @@
 }
 
 div#busa-main {
+  text-alignment: left;
   height: 10em;
   z-index: 10000;
   top: 1em;
@@ -32,13 +50,11 @@ div#busa-main {
 }
 
 #busa-xtoggle {
-  height: 2em;
   min-height: 2em;
   z-index: 10000;
 }
 
 div#busa-toggle {
-  height: 1.5em;
   width: 100px;
   z-index: 10000;
 }

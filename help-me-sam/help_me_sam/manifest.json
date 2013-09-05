@@ -1,6 +1,6 @@
 {
   "name" : "Help me with SAM",
-  "version" : "0.2.3",
+  "version" : "0.3.0",
   "description" : "show me what I need to know to register at SAM",
   "background" : { "scripts": ["background.js"] },
   "permissions" : [ "tabs", "https://www.sam.gov/*", "http://mo.tynsax.com/*" ],
