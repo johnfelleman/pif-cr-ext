@@ -1,0 +1,49 @@
+{
+    "list": [
+	{
+	    "matchString":"First Name",
+	    "required": "true",
+	    "displayText":"help with first name"
+	},
+	{
+	    "matchString":"Middle Initial",
+	    "required": "false",
+	    "displayText":"help with middle initial"
+	},
+	{
+	    "matchString":"Last Name",
+	    "required": "true",
+	    "displayText":"help with last name"
+	},
+	{
+	    "matchString":"Suffix",
+	    "required": "false",
+	    "displayText":"help with suffix"
+	},
+	{
+	    "matchString":"Email Address",
+	    "required": "true",
+	    "displayText":"name@domain.xxx"
+	},
+	{
+	    "matchString":"Confirm Email Address",
+	    "required": "true",
+	    "displayText":"must match email"
+	},
+	{
+	    "matchString":"First Name",
+	    "required": "true",
+	    "displayText":"help with first name"
+	},
+	{
+	    "matchString":"Phone",
+	    "required": "true",
+	    "displayText":"make sure to match the format"
+	},
+	{
+	    "matchString":"Phone Extension",
+	    "required": "false",
+	    "displayText":"add if needed"
+	}
+    ]
+}
