@@ -1,12 +1,67 @@
+// Create a USDS helper library namespace
+
+var usdsJsHelper = {};
+(function(context) { 
+    var id = 0;
+
+    context.next = function() {
+	return id++;    
+    };
+      
+    context.reset = function() {
+	id = 0;     
+    }
+})(usdsJsHelper);  
+
+window.console && console.log(
+usdsJsHelper.next(),
+usdsJsHelper.next(),
+usdsJsHelper.reset(),
+usdsJsHelper.next()
+) //0, 1, undefined, 0
+
 // In HTML5, use session storage to set/get the open/minimized state of the helper
 // If not HTML5, always return minimized (this could be improved with a SESSION cookie)
     
 $(document).ready(function() {
 
-    // define the main DIVs
+    // read from the MO server just to prove we can
+    chrome.runtime.sendMessage({command: "get-json-from-url",
+		url: "http://mo.tynsax.com/api/operations "}, function(response) {
+      // console.log(response.farewell);
+      workFlow = response;
+      alert(JSON.stringify(workFlow));
+      });
+
+    // use the background page to get the JSON
+    var fieldListFromJson;
+    var moWorkflow;
+    chrome.runtime.sendMessage({command: "get-json-from-url", url: "field_list.json"}, function(response) {
+      fieldListFromJson = response;
+      alert(JSON.stringify(fieldListFromJson));
+      });
+
+    // $( document ).ajaxError(function() {
+      // $( "div.log" ).text( "Triggered ajaxError handler." );
+      // alert('failed to complete AJAX request');
+      // });
+
+    // bgPage =  chrome.runtime.getBackgroundPage()
+    // var jsonUrl = chrome.extension.getURL('field_list.json');
+    // alert('file is ' + jsonUrl);
+    // bgPage.getJSON(jsonUrl, function(data) {
+    	// alert('got some JSON');
+	// items = data.list;
+	// // $.each(items, function(key, val) {
+	    // alert('key: ' + key + ' value: ' + value);
+	    // });
+	// });
+
     if (sessionStorage.getItem("visible") == null) {
     	sessionStorage.setItem("visible", 'true');
     }
+
+    // define the main DIVs
     var sam_div = $('#UIPortalApplication');
     var busa_main_div = $('<div class="busa" id="busa-main"><div id="busa-content"></div></div>');
     var busa_toggle_div =
@@ -19,14 +74,6 @@ $(document).ready(function() {
 
     // The code below should read some info from a local JSON file and build the field handlers
     // ...but it doesn't...at least not yet
-
-    // $.getJSON('field_list.json', function(data) {
-    	// alert('got some JSON');
-	// items = data.list;
-	// $.each(items, function(key, val) {
-	    // alert('key: ' + key + ' value: ' + value);
-	      // });
-	// });
 
     // So we do this instead
     // Each of these objects should have come from JSON

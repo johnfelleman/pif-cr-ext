@@ -13,6 +13,30 @@ function checkForValidUrl(tabId, changeInfo, tab) {
       chrome.pageAction.show(tabId);
     }
 };  
-	        
+	  
+// Handle a command from a user page
+
+// request object properties:
+//	"command" : "get-json-from-url" | "signs-of-life"	(maybe more later?)
+//	"url": <url-name>	(relative to extension root OR absolute)
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    switch (request.command) {
+	case 'get-json-from-url':
+	$.getJSON(request.url,  function(data) {
+	    sendResponse({result: data});
+	});
+	break;
+
+	case 'signs-of-life':
+	sendResponse({status: "nominal"});
+	break;
+
+	default:
+	break;
+	}
+    return true;
+    });
+
 // Listen for any changes to the URL of any tab.
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
