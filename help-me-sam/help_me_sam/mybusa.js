@@ -166,9 +166,21 @@ $(document).ready(function() {
     req.done(function(msg) {
         $('div#busa-content').html($(msg).filter("#" + div_id));
         $(msg).filter('#busa-customer-svc').insertAfter($('div#busa-content'));
+	$('dd#button-me').html( '<button id="view-workflow" name="show-mo" type="button">View</button>');
+	$('dd#button-me').click(function() {
+		$(window.open('', 'workflow',
+		'location=no, height=600, width=600').document.body).html(sessionStorage.processMap);
+	});
     });
     req.fail(function(jqXHR, textStatus) {
         console.log("Request failed: " + textStatus);
+    });
+
+    // read the JSON workflow data
+    sessionStorage.processMap = '{}';
+    $.getJSON('http://mo.tynsax.com/api/operations/sam-system-of-award-management-registration-process/map',
+    		function(data) {
+	sessionStorage.processMap = JSON.stringify(data);
     });
 
     // define toggle/click/slide behavior
@@ -184,11 +196,6 @@ $(document).ready(function() {
         }
     });
 
-    // read the JSON workflow data
-    $.getJSON('http://mo.tynsax.com/api/operations/sam-system-of-award-management-registration-process/map',
-    		function(data) {
-	sessionStorage.setItem("processMap",data);
-    });
     // trigger opening animation
     if (sessionStorage.getItem("visible") != 'false') {
 	// $('div#busa-main').slideDown();

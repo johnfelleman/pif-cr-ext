@@ -1,6 +1,6 @@
 {
   "name" : "Help me with SAM",
-  "version" : "0.3.0",
+  "version" : "0.4.0",
   "description" : "show me what I need to know to register at SAM",
   "background" : { "page": "background.html" },
   "permissions" : [ "tabs", "https://www.sam.gov/*", "http://mo.tynsax.com/api/*" ],
