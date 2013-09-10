@@ -1,5 +1,4 @@
 // Copyright (c) 2013
-// requires usdsJsHelpler.js
 
 // Handle a command from a user page
 // request object properties:
@@ -28,7 +27,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 // Checks to see if we are on sam.gov
 // and shows page action if we are
 
-usdsJsHelper.checkForValidUrl = function(tabId, changeInfo, tab) {
+checkForValidUrl = function(tabId, changeInfo, tab) {
     var samurl = "https://www.sam.gov/portal/";
     var samurllength = samurl.length;
     var taburl = tab.url.substr(0,samurl.length);
