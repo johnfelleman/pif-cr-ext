@@ -23,6 +23,7 @@
   "minimum_chrome_version" : "6.0.0.0",
   "manifest_version": 2,
   "web_accessible_resources": [
-      "busa-main.html"
+      "busa-main.html",
+      "field_list.json"
   ]
 }

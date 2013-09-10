@@ -19,12 +19,6 @@
     visibility: visible;
 }
 
-.floating-help-not {
-    background-color: red;
-    color: white;
-    visibility: visible;
-}
-
 .busa a:link {
   color: lightblue;
 }

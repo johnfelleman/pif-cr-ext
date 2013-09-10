@@ -1,102 +1,62 @@
 // Create a USDS helper library namespace
 
+"use strict";
+
 var usdsJsHelper = {};
 
-// This will be cool someday when I am smarter
-// (function(context) { 
-    // var id = 0;
-
-    // context.next = function() {
-	// return id++;    
-    // };
-      
-    // context.reset = function() {
-	// id = 0;     
-    // }
-// })(usdsJsHelper);  
-
-// window.console && console.log(
-// usdsJsHelper.next(),
-// usdsJsHelper.next(),
-// usdsJsHelper.reset(),
-// usdsJsHelper.next()
-// ) //0, 1, undefined, 0
-
-usdsJsHelper.loadFieldHandlers = function(fields) {
-    for (var index = 0; index < fields.length; index++) {
-	$('input[title="' + fields[index].matchString + '"]').mouseenter(
-		    { field: fields[index]},function(ev) {
-	    var field = ev.data.field;
-
-	   
-	    if (field.required == "true") {
-		var hoverText = "Example of help on hover:<br>" + field.hover + "<br>(required)";
-	    } else {
-		var hoverText = "Example of help on hover:<br>" + field.hover + "<br>(optional)";
-	    }
-	    topValue = '"' + ev.pageY + 'px"';
-	    leftValue = '"' + (ev.pageX + 100) + 'px"';
-	    // $('div.floating-help-box').css( {
-			    // "visibility": "visible",
-			    // "z-index": "1000",
-			    // "top": "300px",
-			    // "left": "300px"
-			    // });
-	    // $('div.floating-help-box').html(hoverText);
-	    // $('p.field-hover').html(hoverText);
-
-	    var hoverHtmlDiv = $('<div class="floating-help" id="popup-help">'
-		    // + 'style="visibility:visible; top:' + ev.pageY
-		    // + '; left:' + (ev.pageX + 100) + '; position:fixed">'
-		    + hoverText + '</div>');
-	    hoverHtmlDiv.insertAfter(this);
-	});
-
-	$('input[title="' + fields[index].matchString + '"]').mouseleave(
-		    { field: fields[index]},function(ev) {
-	    var field = ev.data.field;
-	    $('#popup-help').remove();
-	    // $('div.floating-help-box').css( { "visibility": "visible", });
-	    // $('p.field-hover').html("hide me");
-	});
-
-	$('input[title="' + fields[index].matchString + '"]').focus(
-		    { field: fields[index]},function(ev) {
-	    var field = ev.data.field;
-	    $('p.field-focus').html('info for active field:<br>' + field.focus);
-	});
-
-	// Do validation when leaving field
-	$('input[title="' + fields[index].matchString + '"]').focusout(
-		    { field: fields[index]},function(ev) {
-	    var field = ev.data.field;
-	    var userEntered = this.value;
-	    var errorOccurred = 'false';
-	    var errorMessage = "Error:\n";
-	    switch (field.validator.type) {
-		case "alpha-string":
-		if (this.value.indexOf(" ") != -1) {
-		    errorMessage += "no spaces allowed\n";
-		    errorOccurred = 'true';
+usdsJsHelper.loadFieldHandlers = function (fields) {
+    $.each(fields, function(index, field) {
+	$('input[title="' + field.matchString + '"]').on('mouseenter mouseleave focus focusout',
+		    { field: field},function(ev) {
+	    var currentField = ev.data.field;
+	    switch(ev.type) {
+		case 'mouseenter':
+		if (currentField.required == "true") {
+		    var hoverText = "Example of help on hover:<br>" + currentField.hover + "<br>(required)";
+		} else {
+		    var hoverText = "Example of help on hover:<br>" + currentField.hover + "<br>(optional)";
 		}
-		if (userEntered.length > field.validator.rules.length) {
-		    errorMessage += "maximum length: " + field.validator.rules.length;
-		    errorOccurred = 'true';
-		}
-		if (errorOccurred == 'true') {
-		    alert(errorMessage);
-		    this.focus();
-		    this.select();
-		}
+		var hoverHtmlDiv = $('<div class="floating-help" id="popup-help">'
+			+ hoverText + '</div>');
+		hoverHtmlDiv.insertAfter(this);
 		break;
 
-		case "us-phone":
-		var digitsOnly = this.value.replace(/\D/g,"");
-		if (digitsOnly.length != 10) {
-		    alert(errorMessage + "Telephone numbers must have 10 digits");
-		    this.focus();
-		    this.select();
-		} else {
+		case 'mouseleave':
+		$('#popup-help').remove();
+		break;
+
+		case 'focus':
+		$('p.field-focus').html('info for active field:<br>' + currentField.focus);
+		break;
+
+		case 'focusout':
+		var userEntered = this.value;
+		var errorOccurred = 'false';
+		var errorMessage = "Error:\n";
+		switch (currentField.validator.type) {
+		    case "alpha-string":
+		    if (this.value.indexOf(" ") != -1) {
+			errorMessage += "no spaces allowed\n";
+			errorOccurred = 'true';
+		    }
+		    if (userEntered.length > currentField.validator.rules.length) {
+			errorMessage += "maximum length: " + currentField.validator.rules.length;
+			errorOccurred = 'true';
+		    }
+		    if (errorOccurred == 'true') {
+			alert(errorMessage);
+			this.focus();
+			this.select();
+		    }
+		    break;
+
+		    case "us-phone":
+		    var digitsOnly = this.value.replace(/\D/g,"");
+		    if (digitsOnly.length != 10) {
+			alert(errorMessage + "Telephone numbers must have 10 digits");
+			this.focus();
+			this.select();
+		    } else {
 		    this.value = '(' + digitsOnly.substr(0,3) + ')'
 			   +  digitsOnly.substr(3,3) + '-' + digitsOnly.substr(6,4);
 		}
@@ -117,9 +77,13 @@ usdsJsHelper.loadFieldHandlers = function(fields) {
 		default:
 		break;
 	    }
-	});
+		break;
 
-    }
+		default:
+		break;
+	    }
+	});
+    });
 }
 
 $(document).ready(function() {
@@ -139,12 +103,6 @@ $(document).ready(function() {
     	sessionStorage.setItem("visible", 'true');
     }
 
-    // use the background page to get the JSON
-    var fields;
-    chrome.runtime.sendMessage({command: "get-json-from-url", url: "field_list.json"}, function(response) {
-      usdsJsHelper.loadFieldHandlers(response.result);
-      });
-
     // contextual page info
     var page_name = $("div.page_heading").text();
     if (!page_name) {
@@ -158,6 +116,15 @@ $(document).ready(function() {
     console.log("DIV ID: " + div_id);
 
     // insert the DIVs into the DOM
+    var fields;
+    var qer = $.ajax({
+        type: "GET",
+        url: chrome.extension.getURL("field_list.json"),
+        dataType: "json"
+    });
+    qer.done(function(msg) {
+      usdsJsHelper.loadFieldHandlers(msg);
+    });
     var req = $.ajax({
         type: "GET",
         url: chrome.extension.getURL("busa-main.html"),
@@ -168,8 +135,8 @@ $(document).ready(function() {
         $(msg).filter('#busa-customer-svc').insertAfter($('div#busa-content'));
 	$('dd#button-me').html( '<button id="view-workflow" name="show-mo" type="button">View</button>');
 	$('dd#button-me').click(function() {
-		$(window.open('', 'workflow',
-		'location=no, height=600, width=600').document.body).html(sessionStorage.processMap);
+	$(window.open('', 'workflow',
+	    'location=no, height=600, width=600').document.body).html(sessionStorage.processMap);
 	});
     });
     req.fail(function(jqXHR, textStatus) {
