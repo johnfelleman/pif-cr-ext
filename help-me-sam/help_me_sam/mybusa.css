@@ -9,16 +9,6 @@
   font-size: 125%;
 }
 
-#popup-help {
-    position: fixed:
-    left: 400px;
-    top: 800px;
-    background-color: red;
-    color: white;
-    z-index: 20000;
-    visibility: visible;
-}
-
 .busa a:link {
   color: lightblue;
 }
@@ -70,3 +60,18 @@ div#busa-toggle {
   width: 25%;
   padding: 1em;
 }
+
+#popup-help {
+    position: fixed:
+    left: 400px;
+    top: 800px;
+    background-color: red;
+    color: white;
+    z-index: 20000;
+    visibility: visible;
+}
+
+#display-hover-text {
+    z-index:20000;
+}
+

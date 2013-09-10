@@ -17,7 +17,7 @@
 	   {
 	   "matches": ["https://www.sam.gov/*"],
 	   "css": ["mybusa.css"],
-	   "js": [ "jquery-1.10.2.js", "mybusa.js"]
+	   "js": [ "jquery-1.10.2.js", "usdsJsHelper.js", "mybusa.js"]
 	   }
   ],
   "minimum_chrome_version" : "6.0.0.0",

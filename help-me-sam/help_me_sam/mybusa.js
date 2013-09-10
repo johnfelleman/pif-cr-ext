@@ -1,8 +1,5 @@
-// Create a USDS helper library namespace
-
-"use strict";
-
-var usdsJsHelper = {};
+// USDS helper library namespace
+var usdsJsHelper = usdsJsHelper || {};
 
 usdsJsHelper.loadFieldHandlers = function (fields) {
     $.each(fields, function(index, field) {
@@ -94,7 +91,7 @@ $(document).ready(function() {
     var busa_toggle_div =
 	$('<div class="busa"><p><a href="#" id="busa-toggle">Minimize the SAM Helper</a></p></div>');
     var floating_help_div =
-	$('<div class="floating-help-box" id="display-hover-text" style="z-index:20000">hat</div>');
+	$('<div class="floating-help-box" id="display-hover-text"></div>');
     busa_main_div.insertBefore(sam_div);
     busa_toggle_div.insertAfter(busa_main_div);
     floating_help_div.insertAfter(busa_toggle_div);
