@@ -81,7 +81,7 @@
 	"required": "true",
 	"valid": "must match email address",
 	"hover": "Confirm your contact email address",
-	"focus": "please enter your email address",
+	"focus": "Please confirm your email address",
 	"unfocused": "this is not a match",
 	"validator": {
 	    "type": "confirm",
