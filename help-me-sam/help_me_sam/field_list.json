@@ -84,7 +84,11 @@
 	"focus": "please enter your email address",
 	"unfocused": "this is not a match",
 	"validator": {
-	    "type": "email"
+	    "type": "confirm",
+	    "rules": {
+	    	"type": "confirm",
+		"matchField": "Email Address"
+	    }
 	}
     },
     {

@@ -69,17 +69,24 @@ $(document).ready(function() {
         if ( $('div#busa-main').is(":visible") ) {
             $('div#busa-main').slideUp();
             $(this).text("View assistance for " + page_name);
-	    sessionStorage.setItem("visible", 'false');
+	    sessionStorage.usdsJsHelperVisible = 'false';
         } else {
             $('div#busa-main').slideDown();
             $(this).text("Minimize the SAM Helper");
-	    sessionStorage.setItem("visible", 'true');
+	    sessionStorage.usdsJsHelper.Visible = 'true';
         }
     });
 
     // trigger opening animation
-    if (sessionStorage.getItem("visible") != 'false') {
-	// $('div#busa-main').slideDown();
+    if (sessionStorage.usdsJsHelperVisible !== 'false') {
+	sessionStorage.usdsJsHelperVisible = 'true';
+    }
+
+    if ( sessionStorage.usdsJsHelperVisible === 'true') {
+	$('div#busa-main').slideDown();
 	// $(this).text("Minimize the SAM Helper");
+    } else {
+	$('div#busa-main').slideUp();
+	// $(this).text("View the SAM Helper");
     }
 });
