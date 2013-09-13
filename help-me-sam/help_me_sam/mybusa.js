@@ -24,10 +24,7 @@ $(document).ready(function() {
         $('div#busa-main').hide();
     }
 
-    // console.log("Page Name: " + page_name);
-    var div_id = page_name.replace(/ /g, '-');
-    div_id = div_id.replace(/\./g, '-');
-    // console.log("DIV ID: " + div_id);
+    var div_id = page_name.replace(/[\. ]/g, '-');
 
     // insert the DIVs into the DOM
     var fields;
@@ -37,7 +34,7 @@ $(document).ready(function() {
         dataType: "json"
     });
     qer.done(function(msg) {
-      usdsJsHelper.loadFieldHandlers(msg);
+      usdsJsHelper.loadFieldHandlers(div_id, msg);
     });
     var req = $.ajax({
         type: "GET",
@@ -54,7 +51,6 @@ $(document).ready(function() {
 	});
     });
     req.fail(function(jqXHR, textStatus) {
-        console.log("Request failed: " + textStatus);
     });
 
     // read the JSON workflow data
