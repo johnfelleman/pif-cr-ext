@@ -24,38 +24,86 @@ $(document).ready(function() {
         $('div#busa-main').hide();
     }
 
-    // console.log("Page Name: " + page_name);
-    var div_id = page_name.replace(/ /g, '-');
-    div_id = div_id.replace(/\./g, '-');
-    // console.log("DIV ID: " + div_id);
+    var pageToken = page_name.replace(/[\. ]/g, '_');
 
     // insert the DIVs into the DOM
-    var fields;
-    var qer = $.ajax({
+    var fields, contentItems;
+
+    // Get the field data (for now, from a file, someday from MO server)
+    $.ajax({
         type: "GET",
         url: chrome.extension.getURL("field_list.json"),
         dataType: "json"
+    }).done(function(msg) {
+      usdsJsHelper.loadFieldHandlers(pageToken, msg);
+    }).fail(function() {
+      alert('failed to read JSON field data');
     });
-    qer.done(function(msg) {
-      usdsJsHelper.loadFieldHandlers(msg);
-    });
-    var req = $.ajax({
+
+    // Get the content for the help items
+    var pageContent;
+    $.ajax({
         type: "GET",
         url: chrome.extension.getURL("busa-main.html"),
         dataType: "html"
+    }).done( function(data) {
+        pageContent = usdsJsHelper.contentForPgItm(data, pageToken);
+        $('div#busa-content').html( '<div class="helper_item overview" title="overview_text">\n\
+                    <p>This is an overview</p>\n\
+                            </div>');
+        $('<div class="helper_item help_info" title="help">\n\
+            <dl>\n\
+            <dt>Getting Help: Email</dt>\n\
+            <dd>\n\
+            <a href="mailto:help.with.sam@businessusa.gov">\n\
+            help.with.sam@businessusa.gov</a>\n\
+            </dd>\n\
+            <dt>see the MO workflow</dt>\n\
+            <dd id="button-me"></dd>\n\
+            <dd id="wiz-me"></dd>\n\
+            </dl>\n\
+            </div>').insertAfter($('div#busa-content'));
+        // $('div#busa-content').html( $(pageContent).filter('.helper_item[title="overview_text"]'));
+        // $(pageContent).filter('.helper_item[title="help"]').insertAfter($('div#busa-content'));
+
+        $('dd#button-me').html( '<button id="view-workflow" name="show-mo" type="button">View</button>');
+        $('dd#button-me').click(function() {
+            $(window.open('', 'workflow',
+                'location=no, height=600, width=600').document.body).html(sessionStorage.processMap);
+        });
+        $('dd#wiz-me').
+            html( '<button id="launch-wizard" name="launch-wizard" type="button">Take me to the Wizard</button>');
+        $('dd#wiz-me').click(function() {
+            $(window.open('', 'wizard',
+                'location=no, height=600, width=600').document.body).html("I will be your wizard");
+        });
+    }).fail(function(jqXHR, textStatus) {
+        alert('failed to read page content');
     });
-    req.done(function(msg) {
-        $('div#busa-content').html($(msg).filter("#" + div_id));
-        $(msg).filter('#busa-customer-svc').insertAfter($('div#busa-content'));
-	$('dd#button-me').html( '<button id="view-workflow" name="show-mo" type="button">View</button>');
-	$('dd#button-me').click(function() {
-	$(window.open('', 'workflow',
-	    'location=no, height=600, width=600').document.body).html(sessionStorage.processMap);
-	});
-    });
-    req.fail(function(jqXHR, textStatus) {
-        console.log("Request failed: " + textStatus);
-    });
+
+
+    // get some random stuff (this needs to be refactored out of existence
+    // req = $.ajax({
+        // type: "GET",
+        // url: chrome.extension.getURL("busa-main.html"),
+        // dataType: "html"
+    // }).done(function(msg) {
+        // $('div#busa-content').html($(msg).filter("#" + pageToken));
+        // $(msg).filter('#help_info').insertAfter($('div#busa-content'));
+// 
+        // $('dd#button-me').html( '<button id="view-workflow" name="show-mo" type="button">View</button>');
+        // $('dd#button-me').click(function() {
+            // $(window.open('', 'workflow',
+                // 'location=no, height=600, width=600').document.body).html(sessionStorage.processMap);
+        // });
+        // $('dd#wiz-me').html( '<button id="launch-wizard" name="launch-wizard" type="button">Take me to the Wizard</button>');
+        // $('dd#wiz-me').click(function() {
+        // $(window.open('', 'wizard',
+            // 'location=no, height=600, width=600').document.body).html("I will be your wizard");
+        // });
+    // }).fail(function(jqXHR, textStatus) {
+        // alert('failed to read some random stuff');
+    // });
 
     // read the JSON workflow data
     sessionStorage.processMap = '{}';
@@ -73,20 +121,18 @@ $(document).ready(function() {
         } else {
             $('div#busa-main').slideDown();
             $(this).text("Minimize the SAM Helper");
-	    sessionStorage.usdsJsHelper.Visible = 'true';
+	    sessionStorage.usdsJsHelperVisible = 'true';
         }
     });
 
     // trigger opening animation
     if (sessionStorage.usdsJsHelperVisible !== 'false') {
-	sessionStorage.usdsJsHelperVisible = 'true';
+        sessionStorage.usdsJsHelperVisible = 'true';
     }
 
     if ( sessionStorage.usdsJsHelperVisible === 'true') {
-	$('div#busa-main').slideDown();
-	// $(this).text("Minimize the SAM Helper");
+        $('div#busa-main').slideDown();
     } else {
-	$('div#busa-main').slideUp();
-	// $(this).text("View the SAM Helper");
+        $('div#busa-main').slideUp();
     }
 });
