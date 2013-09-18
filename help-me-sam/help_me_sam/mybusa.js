@@ -40,6 +40,16 @@ $(document).ready(function() {
       alert('failed to read JSON field data');
     });
 
+    // Temporary way to get overview text for the pages
+    overviews = {
+        "SAM_gov":
+        "<p>Welcome to the SAM Helper.  This utility will guide you through the process of registering with SAM, so that you can do business with the government.</p><p>To begin, click the 'Create User Account' button in the leftmost box below.</p>",
+        "Create_Account":
+        "<p>To begin, you must create a user account with SAM.  Start that process by clicing the 'Individual Account' button below on the left.</p>",
+        "Personal_Information":
+        "<p>The first step in creating your user account is to collect some personal information.  Please go ahead and fill out the screen below.  Make sure to complete the required items marked with a '*'.  The helper will assist you in entering valid information.</p>"
+    };
+
     // Get the content for the help items
     var pageContent;
     $.ajax({
@@ -48,9 +58,10 @@ $(document).ready(function() {
         dataType: "html"
     }).done( function(data) {
         pageContent = usdsJsHelper.contentForPgItm(data, pageToken);
-        $('div#busa-content').html( '<div class="helper_item overview" title="overview_text">\n\
-                    <p>This is an overview</p>\n\
-                            </div>');
+        var overviewText = '<div class="helper_item overview" title="overview_text">'
+            + overviews[pageToken]
+            + '</div>';
+        $('div#busa-content').html( overviewText);
         $('<div class="helper_item help_info" title="help">\n\
             <dl>\n\
             <dt>Getting Help: Email</dt>\n\
@@ -58,9 +69,9 @@ $(document).ready(function() {
             <a href="mailto:help.with.sam@businessusa.gov">\n\
             help.with.sam@businessusa.gov</a>\n\
             </dd>\n\
-            <dt>see the MO workflow</dt>\n\
-            <dd id="button-me"></dd>\n\
-            <dd id="wiz-me"></dd>\n\
+            <!-- <dt>see the MO workflow</dt>\n\-->\n\
+            <!-- <dd id="button-me"></dd>\n\ -->\n\
+            <!-- <dd id="wiz-me"></dd>\n\ -->\n\
             </dl>\n\
             </div>').insertAfter($('div#busa-content'));
         // $('div#busa-content').html( $(pageContent).filter('.helper_item[title="overview_text"]'));

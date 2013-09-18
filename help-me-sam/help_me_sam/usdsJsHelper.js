@@ -20,18 +20,23 @@ var usdsJsHelper = {
             currentField = ev.data.field;
             switch(ev.type) {
                 case 'mouseenter':  // hover
+                var pos = $(this).position();
                 if (currentField.required === "true") {
-                hoverText = "Example of help on hover:<br>" + currentField.hover + "<br>(required)";
+                    hoverText =  "<br>" + currentField.hover + "<br>(required)";
                 } else {
-                hoverText = "Example of help on hover:<br>" + currentField.hover + "<br>(optional)";
+                    hoverText = "<br>" + currentField.hover + "<br>(optional)";
                 }
-                hoverHtmlDiv = $('<div class="floating-help" id="popup-help">'
+                hoverHtmlDiv = $('<div class="floating-help-box" id="display-hover-text">'
                     + hoverText + '</div>');
+                RIGHTSHIFTAMOUNT = 400;
+                hoverHtmlDiv.css({
+                    "left": (pos.left + RIGHTSHIFTAMOUNT),
+                    "font-size": "150%"});
                 hoverHtmlDiv.insertAfter(this);
                 break;
 
                 case 'mouseleave':  // stop displaying hover
-                $('#popup-help').remove();
+                $('div.floating-help-box#display-hover-text').remove();
                 break;
 
                 case 'focus':   // display info in helper
