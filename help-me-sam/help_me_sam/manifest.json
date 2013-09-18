@@ -1,6 +1,6 @@
 {
   "name" : "Help me with SAM",
-  "version" : "0.4.0",
+  "version" : "0.5.0",
   "description" : "show me what I need to know to register at SAM",
   "background" : { "page": "background.html" },
   "permissions" : [ "tabs", "https://www.sam.gov/*", "http://mo.tynsax.com/api/*" ],
@@ -10,20 +10,20 @@
     "38": "icon38.png",
     "48": "icon48.png"          
     },
-    "default_title": "help with SAM submission",
+    "default_title": "help with SAM registration",
     "default_popup": "popup.html"
     },
   "content_scripts": [
 	   {
 	   "matches": ["https://www.sam.gov/*"],
-	   "css": ["mybusa.css"],
-	   "js": [ "jquery-1.10.2.js", "usdsJsHelper.js", "mybusa.js"]
+	   "css": ["samHelper.css"],
+	   "js": [ "jquery-1.10.2.js", "usdsJsHelper.js", "samHelper.js"]
 	   }
   ],
   "minimum_chrome_version" : "6.0.0.0",
   "manifest_version": 2,
   "web_accessible_resources": [
-      "busa-main.html",
-      "field_list.json"
+      "samHelper.html",
+      "samHelper.json"
   ]
 }
