@@ -6,12 +6,13 @@ $(document).ready(function() {
     var sam_div = $('#UIPortalApplication');
     var busa_main_div = $('<div class="busa" id="busa-main"><div id="busa-content"></div></div>');
     var busa_toggle_div =
-	$('<div class="busa"><p><a href="#" id="busa-toggle">Minimize the SAM Helper</a></p></div>');
-    var floating_help_div =
-	$('<div class="floating-help-box" id="display-hover-text"></div>');
+        $('<div class="busa"><p><a href="#" id="busa-toggle">Minimize the SAM Helper</a></p></div>');
+    var quickHintDiv =
+        $('<div class="quick_hint" id="display-hover-text"></div>');
+    var progressDiv = $('<div class="progress" id="progress"></div>');
     busa_main_div.insertBefore(sam_div);
     busa_toggle_div.insertAfter(busa_main_div);
-    floating_help_div.insertAfter(busa_toggle_div);
+    quickHintDiv.insertAfter(busa_toggle_div);
 
     if (sessionStorage.getItem("visible") == null) {
     	sessionStorage.setItem("visible", 'true');
@@ -27,7 +28,7 @@ $(document).ready(function() {
     var pageToken = page_name.replace(/[\. ]/g, '_');
 
     // insert the DIVs into the DOM
-    var fields, contentItems;
+    var fields, contentItems, progress;
 
     // Get the field data (for now, from a file, someday from MO server)
     $.ajax({
@@ -36,6 +37,7 @@ $(document).ready(function() {
         dataType: "json"
     }).done(function(msg) {
       usdsJsHelper.loadFieldHandlers(pageToken, msg);
+      progress = usdsJsHelper.progressForPage(pageToken, msg);
     }).fail(function() {
       alert('failed to read JSON field data');
     });
@@ -62,7 +64,7 @@ $(document).ready(function() {
             + overviews[pageToken]
             + '</div>';
         $('div#busa-content').html( overviewText);
-        $('<div class="helper_item help_info" title="help">\n\
+        var helpDiv =$('<div class="helper_item help_info" title="help">\n\
             <dl>\n\
             <dt>Getting Help: Email</dt>\n\
             <dd>\n\
@@ -88,6 +90,11 @@ $(document).ready(function() {
             $(window.open('', 'wizard',
                 'location=no, height=600, width=600').document.body).html("I will be your wizard");
         });
+        if (progress === undefined) {
+            progress = 'calculating';
+        }
+        $(progressDiv).html('Progress: ' + progress + ' %');
+        $(progressDiv).insertAfter($(helpDiv));
     }).fail(function(jqXHR, textStatus) {
         alert('failed to read page content');
     });

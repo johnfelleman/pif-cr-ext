@@ -14,20 +14,20 @@ var usdsJsHelper = {
             return true;
         });
         $.each(fields, function(text, field) {
-            $('input[title="' + field.matchString + '"]').on('mouseenter mouseleave focus focusout',
+            $('input[title="' + field.token + '"]').on('mouseenter mouseleave focus focusout',
                 { field: field},function(ev) {
-            var digitsOnly, currentField,  errorOccurred, errorMessage, hoverText, hoverHtmlDiv;
+            var digitsOnly, currentField,  errorOccurred, errorMessage, hintText, hoverHtmlDiv;
             currentField = ev.data.field;
             switch(ev.type) {
-                case 'mouseenter':  // hover
+                case 'mouseenter':  // display a quick hint
                 var pos = $(this).position();
                 if (currentField.required === "true") {
-                    hoverText =  "<br>" + currentField.hover + "<br>(required)";
+                    hintText =  "<br>" + currentField.quickHint + "<br>(required)";
                 } else {
-                    hoverText = "<br>" + currentField.hover + "<br>(optional)";
+                    hintText = "<br>" + currentField.quickHint + "<br>(optional)";
                 }
-                hoverHtmlDiv = $('<div class="floating-help-box" id="display-hover-text">'
-                    + hoverText + '</div>');
+                hoverHtmlDiv = $('<div class="quick_hint" id="display-hover-text">'
+                    + hintText + '</div>');
                 RIGHTSHIFTAMOUNT = 400;
                 hoverHtmlDiv.css({
                     "left": (pos.left + RIGHTSHIFTAMOUNT),
@@ -36,7 +36,7 @@ var usdsJsHelper = {
                 break;
 
                 case 'mouseleave':  // stop displaying hover
-                $('div.floating-help-box#display-hover-text').remove();
+                $('div.quick_hint#display-hover-text').remove();
                 break;
 
                 case 'focus':   // display info in helper
@@ -89,13 +89,13 @@ var usdsJsHelper = {
                 case "confirm":
 
                 $.each(fields, function(text, confirmField) {
-                    if (confirmField.matchString === field.validator.rules.matchField) {
-                        var str1 = $('input[title="' + field.matchString + '"]').val();
-                    var str2 = $('input[title="' + confirmField.matchString + '"]').val();
+                    if (confirmField.token === field.validator.rules.matchField) {
+                        var str1 = $('input[title="' + field.token + '"]').val();
+                    var str2 = $('input[title="' + confirmField.token + '"]').val();
                         if (str1 !== str2) {
                         alert(errorMessage + str1 + '\nand ' + str2 +' do not match');
-                        $('input[title="' + field.matchString + '"]').focus();
-                        $('input[title="' + field.matchString + '"]').select();
+                        $('input[title="' + field.token + '"]').focus();
+                        $('input[title="' + field.token + '"]').select();
                     }
                     return false;
                         }
@@ -138,5 +138,17 @@ var usdsJsHelper = {
             });
             return content;
         }
+    },
+
+    progressForPage: function(pageId, siteData) {
+        var progress = 0;
+        $.each(siteData.pages, function(index, page) {
+            if (page.page_name === pageId) {
+                progress = page.progress;
+                return false;
+            }
+            return true;
+        });
+        return progress;
     }
  };

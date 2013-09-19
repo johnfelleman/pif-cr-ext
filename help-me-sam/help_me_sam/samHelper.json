@@ -3,19 +3,22 @@
     "comment": "",
     "pages": [
         {
-            "page_name": "SAM-gov"
+            "page_name": "SAM-gov",
+            "progress": "3"
         },
         {
-            "page_name": "Create-an-Account"
+            "page_name": "Create_an_Account",
+            "progress": "6"
         },
         {
             "page_name": "Personal_Information",
+            "progress": "16",
             "form_fields": [
                 {
-                    "matchString": "Title",
+                    "token": "Title",
                     "required": "false",
                     "valid": "Any pull-down value",
-                    "hover": "Your address title",
+                    "quickHint": "Your address title",
                     "focus": "Choose a value",
                     "unfocused": "Oops, your title is invalid",
                     "validator": {
@@ -24,9 +27,9 @@
                     }
                 },
                 {
-                    "matchString": "First Name",
+                    "token": "First Name",
                     "required": "true",
-                    "hover": "Your legal first or given name",
+                    "quickHint": "Your legal first or given name",
                     "valid": "alphabetic characters only\n14 character maximum",
                     "focus": "Enter your name",
                     "unfocused": "don't you know your own name?",
@@ -39,10 +42,10 @@
                     }
                 },
                 {
-                    "matchString": "Middle Initial",
+                    "token": "Middle Initial",
                     "required": "false",
                     "valid": "one letter only, no punctuation",
-                    "hover": "Your middle initial",
+                    "quickHint": "Your middle initial",
                     "focus": "enter your initial",
                     "unfocused": "one letter only please",
                     "validator": {
@@ -51,9 +54,9 @@
                     }
                 },
                 {
-                    "matchString": "Last Name",
+                    "token": "Last Name",
                     "required": "true",
-                    "hover": "Your legal last or family name",
+                    "quickHint": "Your legal last or family name",
                     "valid": "alphabetic characters only\n14 character maximum",
                     "focus": "please enter your family name",
                     "unfocused": "Oops, your name is invalid",
@@ -66,10 +69,10 @@
                     }
                 },
                 {
-                    "matchString": "Suffix",
+                    "token": "Suffix",
                     "required": "false",
                     "valid": "any characters",
-                    "hover": "Suffix",
+                    "quickHint": "Suffix",
                     "focus": "Enter a suffix if desired",
                     "unfocused": "",
                     "validator": {
@@ -78,10 +81,10 @@
                     }
                 },
                 {
-                    "matchString": "Email Address",
+                    "token": "Email Address",
                     "required": "true",
                     "valid": "must be a legal email address",
-                    "hover": "Primary contact email address",
+                    "quickHint": "Primary contact email address",
                     "focus": "please enter your email address",
                     "unfocused": "this is not a valid email",
                     "validator": {
@@ -89,10 +92,10 @@
                     }
                 },
                 {
-                    "matchString": "Confirm Email Address",
+                    "token": "Confirm Email Address",
                     "required": "true",
                     "valid": "must match email address",
-                    "hover": "Confirm your contact email address",
+                    "quickHint": "Confirm your contact email address",
                     "focus": "Please confirm your email address",
                     "unfocused": "this is not a match",
                     "validator": {
@@ -104,9 +107,9 @@
                     }
                 },
                 {
-                    "matchString": "Phone",
+                    "token": "Phone",
                     "required": "true",
-                    "hover": "Your primary phone number",
+                    "quickHint": "Your primary phone number",
                     "valid": "10 digit us phone number",
                     "focus": "Enter your phone number",
                     "unfocused": "Oops, your name is invalid",
@@ -118,9 +121,9 @@
                     }
                 },
                 {
-                    "matchString": "Phone Extension",
+                    "token": "Phone Extension",
                     "required": "false",
-                    "hover": "extension",
+                    "quickHint": "extension",
                     "valid": "anything",
                     "focus": "Enter any necessary extension",
                     "unfocused": "",
@@ -130,9 +133,9 @@
                     }
                 },
                 {
-                    "matchString": "Fax",
+                    "token": "Fax",
                     "required": "false",
-                    "hover": "Fax number",
+                    "quickHint": "Fax number",
                     "valid": "10 digit us phone number",
                     "focus": "Enter your fax number",
                     "unfocused": "",
@@ -146,8 +149,8 @@
             ]
         },
         {
-            "page_name": "Account-Information"
+            "page_name": "Account-Information",
+            "progress": "20"
         }
     ]
 }
-
