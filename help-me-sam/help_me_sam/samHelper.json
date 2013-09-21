@@ -3,7 +3,7 @@
     "comment": "",
     "pages": [
         {
-            "page_name": "SAM-gov",
+            "page_name": "SAM_gov",
             "progress": "3"
         },
         {
@@ -149,8 +149,20 @@
             ]
         },
         {
-            "page_name": "Account-Information",
+            "page_name": "Personal_Information__Duplicate_Email_Address_",
+            "progress": "16"
+        },
+        {
+            "page_name": "Account_Information",
             "progress": "20"
+        },
+        {
+            "page_name": "Summary",
+            "progress": "22"
+        },
+        {
+            "page_name": "Create_Account__Personal_Account_Created_Confirmation",
+            "progress": "24"
         }
     ]
 }

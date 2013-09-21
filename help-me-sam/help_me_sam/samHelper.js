@@ -2,17 +2,19 @@
 
 $(document).ready(function() {
 
-    // define the main DIVs
-    var sam_div = $('#UIPortalApplication');
-    var busa_main_div = $('<div class="busa" id="busa-main"><div id="busa-content"></div></div>');
-    var busa_toggle_div =
-        $('<div class="busa"><p><a href="#" id="busa-toggle">Minimize the SAM Helper</a></p></div>');
-    var quickHintDiv =
-        $('<div class="quick_hint" id="display-hover-text"></div>');
-    var progressDiv = $('<div class="progress" id="progress"></div>');
-    busa_main_div.insertBefore(sam_div);
-    busa_toggle_div.insertAfter(busa_main_div);
-    quickHintDiv.insertAfter(busa_toggle_div);
+    // define the insertion points
+    var insertionPoints = {
+        samInsertionPoint: $('#UIPortalApplication'),
+        busa_main_div: $('<div class="busa" id="busa-main"><div id="busa-content"></div></div>'),
+        busa_toggle_div:
+        $('<div class="busa"><p><a href="#" id="busa-toggle">Minimize the SAM Helper</a></p></div>'),
+        quickHintDiv:
+            $('<div class="quick_hint" id="display-hover-text"></div>'),
+        progressDiv: $('<div class="progress" id="progress"></div>')
+    };
+    insertionPoints.busa_main_div.insertBefore(insertionPoints.samInsertionPoint);
+    insertionPoints.busa_toggle_div.insertAfter(insertionPoints.busa_main_div);
+    insertionPoints.quickHintDiv.insertAfter(insertionPoints.busa_toggle_div);
 
     if (sessionStorage.getItem("visible") == null) {
     	sessionStorage.setItem("visible", 'true');
@@ -93,8 +95,8 @@ $(document).ready(function() {
         if (progress === undefined) {
             progress = 'calculating';
         }
-        $(progressDiv).html('Progress: ' + progress + ' %');
-        $(progressDiv).insertAfter($(helpDiv));
+        $(insertionPoints.progressDiv).html('Progress: ' + progress + ' %');
+        $(insertionPoints.progressDiv).insertAfter($(helpDiv));
     }).fail(function(jqXHR, textStatus) {
         alert('failed to read page content');
     });
