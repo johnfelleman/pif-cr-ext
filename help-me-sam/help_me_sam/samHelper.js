@@ -21,13 +21,15 @@ $(document).ready(function() {
     }
 
     // contextual page info
-    var page_name = $("div.page_heading").text();
-    if (!page_name) {
+    var page_name = $('div.page_heading').text();
+    if (page_name) {
+        page_name += $('div.sub_heading').text();
+    } else {
         page_name = 'SAM.gov';
         $('div#busa-main').hide();
     }
 
-    var pageToken = page_name.replace(/[\. ]/g, '_');
+    var pageToken = page_name.replace(/[^A-Za-z0-9]/g, '_');
 
     // insert the DIVs into the DOM
     var fields, contentItems, progress;
