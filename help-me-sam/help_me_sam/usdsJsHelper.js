@@ -70,7 +70,7 @@ UsdsJsHelper.prototype.loadFieldHandlers = function(pageId, siteData) {
                         errorOccurred = true;
                         }
                         if (errorOccurred === true) {
-                        console.alert(errorMessage);
+                        alert(errorMessage);
                         this.focus();
                         this.select();
                         }
@@ -79,7 +79,7 @@ UsdsJsHelper.prototype.loadFieldHandlers = function(pageId, siteData) {
                         case "us-phone":
                         digitsOnly = this.value.replace(/\D/g,"");
                         if (digitsOnly.length !== 10) {
-                        console.alert(errorMessage + "Telephone numbers must have 10 digits");
+                        alert(errorMessage + "Telephone numbers must have 10 digits");
                         this.focus();
                         this.select();
                         } else {
@@ -90,7 +90,7 @@ UsdsJsHelper.prototype.loadFieldHandlers = function(pageId, siteData) {
 
                     case "email":
                     if (!this.value.match( /^\s*[\w\-\+_]+(\.[\w\-\+_]+)*\@[\w\-\+_]+\.[\w\-\+_]+(\.[\w\-\+_]+)*\s*$/)) {
-                        console.alert(errorMessage + this.value + ' is not a valid email address');
+                        alert(errorMessage + this.value + ' is not a valid email address');
                         this.focus();
                         this.select();
                     }
@@ -98,12 +98,12 @@ UsdsJsHelper.prototype.loadFieldHandlers = function(pageId, siteData) {
 
                     case "confirm":
 
-                    $.each(currentPage.formFields, function(text, confirmField) {
+                    $.each(currentPage.form_fields, function(text, confirmField) {
                         if (confirmField.token === field.validator.rules.matchField) {
                             var str1 = $('input[title="' + field.token + '"]').val();
                             var str2 = $('input[title="' + confirmField.token + '"]').val();
                             if (str1 !== str2) {
-                                console.alert(errorMessage + str1 + '\nand ' + str2 +' do not match');
+                                alert(errorMessage + str1 + '\nand ' + str2 +' do not match');
                                 $('input[title="' + field.token + '"]').focus();
                                 $('input[title="' + field.token + '"]').select();
                             }

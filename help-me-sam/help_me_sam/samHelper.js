@@ -98,7 +98,7 @@ $(document).ready(function() {
     });
 
     // you could even blank out wrong choices!
-    if (pageToken === 'Create_an_Account') {
+    if (pageToken === 'Create_an_AccountChoose_Account_Type_') {
         $('div.sub_heading').text("");
         $('div.search_entity_results_div2').filter(function() {
               return $(this).css('float') == 'right';

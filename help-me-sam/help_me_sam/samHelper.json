@@ -7,11 +7,11 @@
             "progress": "3"
         },
         {
-            "page_name": "Create_an_Account",
+            "page_name": "Create_an_AccountChoose_Account_Type_",
             "progress": "6"
         },
         {
-            "page_name": "Personal_Information",
+            "page_name": "Personal_Information______",
             "progress": "16",
             "form_fields": [
                 {
