@@ -4,8 +4,11 @@ This directory contains three groups of files.
 
 I. usdsJsHelper files
 Files with the usdsJsHelper name or prefix are intended to be domain and application agnostic.
-They form a JavaScript library that is the basis of a reusable web app assistant, described elsewhere.
-TODO: Designate a custodian.  Provide references to the usdsJsHelper documentation and describe code management practices
+They form a JavaScript library that is the basis of a reusable web app assistant,
+described elsewhere.
+TODO:
+Designate a custodian.
+Provide references to the usdsJsHelper documentation and describe code management practices
 for usdsJsHelper.
 
 usdsJsHelper.js
@@ -15,7 +18,7 @@ Files with the samHelper name or prefix are intended to be domain specific but a
 Together, they tie the usdsJsHelper to SAM (sam.gov, the 'System for Award Management')
 These files are to be maintained by people with an understanding of the SAM application domain.
 
-Within samHelper, there are three types of file.  At the moment, there is only one file of each type.
+Within samHelper, there are three types of file.
 A. Connector files provide a glue-layer between the usdsJs application-agnostic code and the application-specific behavior of sam.gov.
 Code which identifies an application page or a field on a page and tags it with a unique name is an example of glue code.
 

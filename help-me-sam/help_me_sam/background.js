@@ -1,4 +1,5 @@
-// Copyright (c) 2013
+// This JavaScript file is invoked from background.html
+// For details of its behavior, refer to the documentation for Chrome extensions
 
 // Handle a command from a user page
 // request object properties:

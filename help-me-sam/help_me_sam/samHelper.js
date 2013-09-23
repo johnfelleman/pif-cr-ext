@@ -1,8 +1,12 @@
-// requires usdsJsHelper.js
+// This is the primary JavaScript 'glue' code that ties the app-agnostic
+// usdsJsHelper library to the SAM application
+//
+// It requires usdsJsHelper.js be loaded before execution
 
 $(document).ready(function() {
 
     // define the insertion points
+    var usdsJsHelper = new UsdsJsHelper();
     var insertionPoints = {
         samInsertionPoint: $('#UIPortalApplication'),
         busa_main_div: $('<div class="busa" id="busa-main"><div id="busa-content"></div></div>'),
@@ -46,16 +50,6 @@ $(document).ready(function() {
       alert('failed to read JSON field data');
     });
 
-    // Temporary way to get overview text for the pages
-    overviews = {
-        "SAM_gov":
-        "<p>Welcome to the SAM Helper.  This utility will guide you through the process of registering with SAM, so that you can do business with the government.</p><p>To begin, click the 'Create User Account' button in the leftmost box below.</p>",
-        "Create_an_Account":
-        "<p>To begin, you must create a user account with SAM.  Start that process by clicing the 'Individual Account' button below on the left.</p>",
-        "Personal_Information":
-        "<p>The first step in creating your user account is to collect some personal information.  Please go ahead and fill out the screen below.  Make sure to complete the required items marked with a '*'.  The helper will assist you in entering valid information.</p>"
-    };
-
     // Get the content for the help items
     var pageContent;
     $.ajax({
@@ -64,9 +58,11 @@ $(document).ready(function() {
         dataType: "html"
     }).done( function(data) {
         pageContent = usdsJsHelper.contentForPgItm(data, pageToken);
-        var overviewText = '<div class="helper_item overview" title="overview_text">'
-            + overviews[pageToken]
-            + '</div>';
+        if ((pageContent !== undefined) && (pageContent.overview_text !== undefined)) {
+            overviewText = pageContent.overview_text.outerHTML;
+        } else {
+            overviewText = ' ';
+        }
         $('div#busa-content').html( overviewText);
         var helpDiv =$('<div class="helper_item help_info" title="help">\n\
             <dl>\n\
@@ -80,8 +76,6 @@ $(document).ready(function() {
             <!-- <dd id="wiz-me"></dd>\n\ -->\n\
             </dl>\n\
             </div>').insertAfter($('div#busa-content'));
-        // $('div#busa-content').html( $(pageContent).filter('.helper_item[title="overview_text"]'));
-        // $(pageContent).filter('.helper_item[title="help"]').insertAfter($('div#busa-content'));
 
         $('dd#button-me').html( '<button id="view-workflow" name="show-mo" type="button">View</button>');
         $('dd#button-me').click(function() {

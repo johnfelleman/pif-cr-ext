@@ -1,11 +1,16 @@
-// Copyright (c) 2013
+// The UsdsJsHelper is a domain and browser agnostic library
+// It provides a mechanism for adding user-assistance to 'frozen'
+// or legacy web applications
+//
+// Source code lives on github at ?
 
 var $;
 
 var UsdsJsHelper = function() {
     'use strict';
-    var pageContent;
 };
+
+UsdsJsHelper.prototype.pageContent = {};
 
 UsdsJsHelper.prototype.loadFieldHandlers = function(pageId, siteData) {
         'use strict';
@@ -93,17 +98,17 @@ UsdsJsHelper.prototype.loadFieldHandlers = function(pageId, siteData) {
 
                     case "confirm":
 
-                    $.each(fields, function(text, confirmField) {
+                    $.each(currentPage.formFields, function(text, confirmField) {
                         if (confirmField.token === field.validator.rules.matchField) {
                             var str1 = $('input[title="' + field.token + '"]').val();
-                        var str2 = $('input[title="' + confirmField.token + '"]').val();
+                            var str2 = $('input[title="' + confirmField.token + '"]').val();
                             if (str1 !== str2) {
-                            console.alert(errorMessage + str1 + '\nand ' + str2 +' do not match');
-                            $('input[title="' + field.token + '"]').focus();
-                            $('input[title="' + field.token + '"]').select();
-                        }
-                        return false;
+                                console.alert(errorMessage + str1 + '\nand ' + str2 +' do not match');
+                                $('input[title="' + field.token + '"]').focus();
+                                $('input[title="' + field.token + '"]').select();
                             }
+                            return false;
+                        }
                     });
                     break;
 
@@ -124,22 +129,19 @@ UsdsJsHelper.prototype.contentForPgItm = function (htmlContent, pageToken, itemT
         'use strict';
         var content, page, items;
         page = this.pageContent;
+        if (!page) {
+            return null;
+        }
         if (page.length === undefined) {
-            /*
             var items = $(htmlContent).filter('.helper_page[title=' + pageToken + ']');
             $.each(items.children(), function(index, item) {
                 page[ item.title ] = item;
             });
-             */
-
-            items = $(htmlContent).filter('.helper_page[title=' + pageToken + ']');
-            page = items.json();
-
         }
         if (itemToken === undefined) {
-            return this._pageContent;
+            return this.pageContent;
         } else {
-            $.each(this._pageContent, function(index, item) {
+            $.each(this.pageContent, function(index, item) {
                 if (item.title === itemToken) {
                     content = item;
                     return false;
@@ -152,6 +154,7 @@ UsdsJsHelper.prototype.contentForPgItm = function (htmlContent, pageToken, itemT
     };
 
 UsdsJsHelper.prototype.progressForPage = function(pageId, siteData) {
+        'use strict';
         var progress = 0;
         $.each(siteData.pages, function(index, page) {
             if (page.page_name === pageId) {

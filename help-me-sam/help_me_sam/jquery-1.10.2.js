@@ -1,4 +1,8 @@
 /*!
+ *
+ * Local copy of jQuery to eliminate any cross-domain security issues
+ * It may be appropriate to upgrade this file periodically
+ *
  * jQuery JavaScript Library v1.10.2
  * http://jquery.com/
  *
